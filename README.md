@@ -1,0 +1,1 @@
+To correctly use this repo you must create a virtual environment, change the ./venv/pyvenv.cfg "include-system-site-packages" from false to true and do all the procedure to use I2C and rapiberry pi camera.

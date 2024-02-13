@@ -1,7 +1,6 @@
 import os
 import board
 import time 
-import digitalio
 import tty, sys, termios
 
 from picamera2 import Picamera2, Preview
