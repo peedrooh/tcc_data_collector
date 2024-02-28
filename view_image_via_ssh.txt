@@ -1,7 +1,8 @@
 If you want to open a image in your PC when you connect to the raspberry pi via shh just run the following commands:
 
 1 - CONNECT TO PI WITH X TOOL:
-ssh -X pedro@192.168.0.183
+You need to configure the ubuntu ethernet to "shared to others computers" in the wired network config
+ssh -X pedro@10.42.0.143
 
 2 - OPEN THE IMAGE WITH FEH
 feh ./path/to/image/image.jpeg
