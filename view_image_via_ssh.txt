@@ -1,0 +1,7 @@
+If you want to open a image in your PC when you connect to the raspberry pi via shh just run the following commands:
+
+1 - CONNECT TO PI WITH X TOOL:
+ssh -X pedro@192.168.0.183
+
+2 - OPEN THE IMAGE WITH FEH
+feh ./path/to/image/image.jpeg
