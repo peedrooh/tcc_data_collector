@@ -72,9 +72,9 @@ def loop(oled: adafruit_ssd1306.SSD1306_I2C, image: ImageDraw, draw: ImageDraw.D
     while(1):
         dirs = sorted(get_dirs("./data"));
         new_dir_index = len(dirs);
-        
+
         draw_text(draw, oled, "Image Logger", "Pressione Enter para", "iniciar secao de fotos");
-    
+
         for line in sys.stdin:
             if 'Exit' == line.rstrip():
                 break;
@@ -86,20 +86,23 @@ def loop(oled: adafruit_ssd1306.SSD1306_I2C, image: ImageDraw, draw: ImageDraw.D
 
             os.mkdir(dir_path);
             
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 1", "Posicionar na frente.", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 2", "Rotacionar 90 graus", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 3", "Rotacionar 180 graus", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 4", "Posicionar atras", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 5", "Rotacionar 90 graus", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 6", "Rotacionar 180 graus", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 7", "Posicionar diagonal", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 8", "Rotacionar 90 graus", 3, dir_path);
-            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 9", "Rotacionar 180 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 1 - Frente", "Posicionar na frente.", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 2 - Frente", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 3 - Frente", "Rotacionar 180 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 4 - Atras", "Posicionar atras", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 5 - Atras", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 6 - Atras", "Rotacionar 180 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 7 - Diagonal1", "Posicionar diagonal 1", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 8 - Diagonal1", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 9 - Diagonal1", "Rotacionar 180 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 10 - Diagonal2", "Posicionar diagonal 2", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 11 - Diagonal2", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 12 - Diagonal2", "Rotacionar 180 graus", 3, dir_path);
 
             output = dir_path + '/video.h264';
             draw_text(draw, oled, "Video", "", "Gravando video...");
             picam2.start_recording(encoder, output);
-            time.sleep(15);
+            time.sleep(5);
             picam2.stop_recording();
 
             termios.tcflush(sys.stdin, termios.TCIOFLUSH);
