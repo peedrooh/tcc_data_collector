@@ -102,7 +102,7 @@ def loop(oled: adafruit_ssd1306.SSD1306_I2C, image: ImageDraw, draw: ImageDraw.D
             output = dir_path + '/video.h264';
             draw_text(draw, oled, "Video", "", "Gravando video...");
             picam2.start_recording(encoder, output);
-            time.sleep(5);
+            time.sleep(15);
             picam2.stop_recording();
 
             termios.tcflush(sys.stdin, termios.TCIOFLUSH);
