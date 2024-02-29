@@ -4,6 +4,7 @@ import time
 import tty, sys, termios
 
 from picamera2 import Picamera2, Preview
+from picamera2.encoders import H264Encoder
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
@@ -11,6 +12,7 @@ import adafruit_ssd1306
 picam2 = Picamera2();
 camera_config = picam2.create_preview_configuration();
 picam2.configure(camera_config);
+encoder = H264Encoder(bitrate=10000000);
 
 filedescriptor = termios.tcgetattr(sys.stdin);
 tty.setcbreak(sys.stdin);
@@ -52,13 +54,13 @@ def draw_text(draw: ImageDraw.Draw, oled: adafruit_ssd1306.SSD1306_I2C, title:st
 
 def photoshoot_procedure(cam, oled: adafruit_ssd1306.SSD1306_I2C, image: ImageDraw, draw: ImageDraw.Draw, font_archivo: ImageFont, title:str = "", msg:str = "", wait_time:int = 5, dir_base_path:str = "./data/collected_data_0"):
     files = get_files(dir_base_path);
-    file_name = f'position_{len(files)+1}.jpeg';
+    file_name = f'position_{len(files)+1}.jpg';
     
     draw_text(draw, oled, title, "", msg);
     time.sleep(wait_time);
     
     cam.start();
-    for i in reversed(range(3)):
+    for i in reversed(range(2)):
         draw_text(draw, oled, title, "", f'Foto em {i+1} segundos', "");
         time.sleep(1);
     cam.capture_file(dir_base_path + "/" + file_name);
@@ -88,7 +90,18 @@ def loop(oled: adafruit_ssd1306.SSD1306_I2C, image: ImageDraw, draw: ImageDraw.D
             photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 2", "Rotacionar 90 graus", 3, dir_path);
             photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 3", "Rotacionar 180 graus", 3, dir_path);
             photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 4", "Posicionar atras", 3, dir_path);
-            
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 5", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 6", "Rotacionar 180 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 7", "Posicionar diagonal", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 8", "Rotacionar 90 graus", 3, dir_path);
+            photoshoot_procedure(picam2, oled, image, draw, font_archivo, "Posicao 9", "Rotacionar 180 graus", 3, dir_path);
+
+            output = dir_path + '/video.h264';
+            draw_text(draw, oled, "Video", "", "Gravando video...");
+            picam2.start_recording(encoder, output);
+            time.sleep(15);
+            picam2.stop_recording();
+
             termios.tcflush(sys.stdin, termios.TCIOFLUSH);
             break;
 
